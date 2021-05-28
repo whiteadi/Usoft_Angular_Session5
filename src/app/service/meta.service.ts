@@ -43,7 +43,7 @@ export class MetaService {
   resolvePost(tableName: string, rowData: any): Observable<any> {
     console.log('Your form data : ', rowData);
     const newRow = `<${tableName} ${rowData} />`;
-    return this.http.post(this.apiURL + `/${tableName}`, newRow, this.httpOptionsPost)
+    return this.http.post(this.apiURL + `/${tableName}`, newRow, { ...this.httpOptions, responseType: 'text' })
       .pipe(
         catchError(this.handleError)
       );
@@ -51,7 +51,7 @@ export class MetaService {
 
   resolvePut(tableName: string, primaryKeysWithValues: string, rowData: any): Observable<any> {
     const newRow = `<${tableName} ${rowData} />`;
-    return this.http.put(this.apiURL + `/${tableName}${primaryKeysWithValues}`, newRow, this.httpOptionsPost)
+    return this.http.put(this.apiURL + `/${tableName}${primaryKeysWithValues}`, newRow, { ...this.httpOptions, responseType: 'text' })
       .pipe(
         catchError(this.handleError)
       );
